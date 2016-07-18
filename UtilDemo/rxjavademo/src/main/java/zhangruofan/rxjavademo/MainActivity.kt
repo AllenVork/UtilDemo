@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         })
 
         retryWithDelayAndCount.setOnClickListener({
-            Retry.retryWithDelayAndCount()
+            Retry.limitedRetriesWithVariableDelay()
         })
     }
 }

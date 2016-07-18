@@ -51,7 +51,7 @@ object Retry {
                     errors.flatMap({ error ->
                         if (error is NullPointerException) {
                             Log.i(TAG, "start retry")
-                            Observable.timer(2, TimeUnit.SECONDS)
+                            Observable.timer(2, TimeUnit.SECONDS) //the core code
                         } else {
                             Observable.error<Exception>(error as Exception)
                         }
@@ -71,7 +71,7 @@ object Retry {
      *
      * Since range(1, 5) runs out of numbers on the fifth error, it calls onCompleted(), which causes the entire zip to complete. This prevents further retries.
      */
-    fun retryWithDelayAndCount() {
+    fun limitedRetriesWithVariableDelay() {
 
         Observable.just("")
                 .flatMap {
@@ -92,7 +92,6 @@ object Retry {
                 .subscribe({
                     Log.i(TAG, "success")
                 }, {
-                    it ->
                     Log.i(TAG, "error:$it")
                 }, {
                     Log.i(TAG, "complete")
